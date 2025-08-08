@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Página teste</title>
+</head>
+<body>
+
+	<div style="text-align: center;">
+		<marquee>
+			<h1>
+				Olá, <span th:text="${var}"></span>
+			</h1>
+		</marquee>
+	</div>
+
+	<br />
+
+	<h1>
+		Meu nome é <span th:text="${name}"></span>
+	</h1>
+
+</body>
+</html>

@@ -9,34 +9,30 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class TesteController {
-	
+
 	@GetMapping("/teste1")
 	public String testar1() {
 		return "/testes/teste";
 	}
-	
+
 	@GetMapping("/teste2")
 	public String testar2(HttpServletRequest req) {
-		
 		req.setAttribute("var", "FIAP!!!");
-		
 		return "/testes/teste";
 	}
 
 	@GetMapping("/teste3")
-	public String testar(Model model)
-	{
+	public String testar3(Model model) {
 		model.addAttribute("var", "ALURA!!!");
-		return "testes/teste";
+		return "/testes/teste";
 	}
-	
+
 	@GetMapping("/teste4")
-	public ModelAndView testar4()
-	{
+	public ModelAndView testar4() {
 		ModelAndView mv = new ModelAndView("/testes/teste");
-		mv.addObject("var", "PM3");
-		mv.addObject("name", "Nathan");
+		mv.addObject("var", "PM3!!!");
+		mv.addObject("nome", "Rennan");
 		return mv;
 	}
-	
+
 }

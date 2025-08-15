@@ -3,42 +3,52 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- xlmns -> ns é namespace, para criarmos atributos dinâmicos para nossa página html -->
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
-    <title>Lista</title>
+    <title>Lista de Discentes</title>
   </head>
   <body>
     <div class="container">
         <div class="row">
-            <h1>Lista</h1>
+            <h1>Lista de Discentes</h1>
         </div>
         <div class="row">
             <div class="col-12">
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th scope="col">A</th>
-                            <th scope="col">B</th>
-                            <th scope="col">C</th>
-                            <th scope="col">D</th>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">RM</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Nivel</th>
+                            <th scope="col">Data de Nascimento</th>
+                            <th scope="col">#</th>
+                            <th scope="col">#</th>
+                            <th scope="col">#</th>
                         </tr>
                       </thead>
                     <tbody>
-                        <tr>
-                            <th class="col-3" scope="row">A</th>
-                            <td class="col-3">B</td>
-                            <td class="col-3">C</td>
-                            <td class="col-3">D</td>
+                        <tr th:each="discente : ${discentes}">                        
+              <th class="col-3" scope="row" th:text="${discente.id}">A</th>
+              <th class="col-3" scope="row" th:text="${discente.pessoa.nome}">B</th>
+              <td class="col-3" th:text="${discente.rm}">C</td>
+              <td class="col-3" th:text="${discente.status.descricao}">D</td>
+              <td class="col-3" th:text="${discente.nivel.descricao}">E</td>
+              <td class="col-3" 
+      th:text="${#temporals.format(discente.pessoa.dataNascimento,'dd/MM/yyyy')}">F</td>
+              <td class="col-3"><a th:href="@{/discente/detalhes/{idDiscente}(idDiscente = ${discente.id})}">Detalhes</a></td>
+              <td class="col-3"><a th:href="@{/discente/editar/{idDiscente}(idDiscente = ${discente.id})}">Editar</a></td>
+              <td class="col-3"><a th:href="@{/discente/remover/{idDiscente}(idDiscente = ${discente.id})}">Remover</a></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
         <div class="row">
-            <a href="/teste/new">Novo Item</a>
+            <a href="/pessoa/nova">Cadastrar Pessoa</a>
         </div>
     </div>
 

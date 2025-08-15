@@ -16,24 +16,21 @@ public class Discente {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-	// JoinColmn = coluna de ligação para chaves estrangeiras
+	private Long id;
 	@ManyToOne
 	@JoinColumn(name = "id_pessoa")
 	private Pessoa pessoa;
-	private long rm;
+	private Long rm;
 	@Enumerated(EnumType.STRING)
 	private EnumStatus status;
 	@Enumerated(EnumType.STRING)
 	private EnumNivel nivel;
 
-	
-	
 	public Discente() {
-		super();
+
 	}
 
-	public Discente(long id, Pessoa pessoa, long rm, EnumStatus status, EnumNivel nivel) {
+	public Discente(Long id, Pessoa pessoa, Long rm, EnumStatus status, EnumNivel nivel) {
 		super();
 		this.id = id;
 		this.pessoa = pessoa;
@@ -42,11 +39,19 @@ public class Discente {
 		this.nivel = nivel;
 	}
 
-	public long getId() {
+	public void transferirDiscente(Discente discenteAtualizado)
+	{
+		setRm(discenteAtualizado.getRm());
+		setNivel(discenteAtualizado.getNivel());
+		setStatus(discenteAtualizado.getStatus());
+		getPessoa().transferirPessoa(discenteAtualizado.getPessoa());
+	}
+	
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -58,11 +63,11 @@ public class Discente {
 		this.pessoa = pessoa;
 	}
 
-	public long getRm() {
+	public Long getRm() {
 		return rm;
 	}
 
-	public void setRm(long rm) {
+	public void setRm(Long rm) {
 		this.rm = rm;
 	}
 

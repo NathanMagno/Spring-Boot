@@ -2,6 +2,9 @@ package br.com.fiap.universidade_fiap.model;
 
 import java.time.LocalDate;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -14,23 +17,22 @@ import jakarta.persistence.Table;
 @Table(name = "pessoa")
 public class Pessoa {
 
-	// Local date trabalha com corrente e fusohorario de onde a gente tá
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	private String nome;
 	private String cpf;
+	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate dataNascimento;
 	@Enumerated(EnumType.STRING)
 	private EnumNacionalidade nacionalidade;
 	private String email;
 
 	public Pessoa() {
-		super();
+
 	}
 
-	public Pessoa(long id, String nome, String cpf, LocalDate dataNascimento, EnumNacionalidade nacionalidade,
+	public Pessoa(Long id, String nome, String cpf, LocalDate dataNascimento, EnumNacionalidade nacionalidade,
 			String email) {
 		super();
 		this.id = id;
@@ -40,12 +42,21 @@ public class Pessoa {
 		this.nacionalidade = nacionalidade;
 		this.email = email;
 	}
+	
+	public void transferirPessoa(Pessoa pessoaAtualizada)
+	{
+		setNome(pessoaAtualizada.getNome());
+		setCpf(pessoaAtualizada.getCpf());
+		setDataNascimento(pessoaAtualizada.getDataNascimento());
+		setNacionalidade(pessoaAtualizada.getNacionalidade());
+		setEmail(pessoaAtualizada.getEmail());
+	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

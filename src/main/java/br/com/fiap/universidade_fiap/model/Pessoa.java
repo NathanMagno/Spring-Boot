@@ -2,6 +2,7 @@ package br.com.fiap.universidade_fiap.model;
 
 import java.time.LocalDate;
 
+import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
@@ -12,6 +13,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "pessoa")
@@ -20,12 +25,19 @@ public class Pessoa {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@NotEmpty(message = "O campo nome é obrigatório")
+	@Size(min = 3, max = 90, message = "Nome deve ter, ao menos, 3 caracteres "
+			+ "e no máximo 90")
 	private String nome;
+	@CPF(message = "O CPF informado é inválido")
 	private String cpf;
+	@Past(message = "A data de nascimento é inválida")
 	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate dataNascimento;
 	@Enumerated(EnumType.STRING)
 	private EnumNacionalidade nacionalidade;
+	@NotEmpty(message =  "O campo de e-amil é obrigatório")
+	@Email(message = "O formato de e-mail é inválido")
 	private String email;
 
 	public Pessoa() {

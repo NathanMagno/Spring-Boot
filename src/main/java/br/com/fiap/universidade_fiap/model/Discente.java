@@ -9,6 +9,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity
 @Table(name = "discente")
@@ -19,7 +21,9 @@ public class Discente {
 	private Long id;
 	@ManyToOne
 	@JoinColumn(name = "id_pessoa")
+	@Valid
 	private Pessoa pessoa;
+	@PositiveOrZero(message = "Valor inválido")
 	private Long rm;
 	@Enumerated(EnumType.STRING)
 	private EnumStatus status;

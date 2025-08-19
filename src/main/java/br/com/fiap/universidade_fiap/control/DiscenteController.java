@@ -3,8 +3,11 @@ package br.com.fiap.universidade_fiap.control;
 import java.util.List;
 import java.util.Optional;
 
+import javax.naming.Binding;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +21,7 @@ import br.com.fiap.universidade_fiap.model.EnumStatus;
 import br.com.fiap.universidade_fiap.model.Pessoa;
 import br.com.fiap.universidade_fiap.repository.DiscenteRepository;
 import br.com.fiap.universidade_fiap.repository.PessoaRepository;
+import jakarta.validation.Valid;
 
 @Controller
 public class DiscenteController {
@@ -51,7 +55,15 @@ public class DiscenteController {
 	}
 	
 	@PostMapping("/insere_pessoa")
-	public ModelAndView cadastrarPessoa(Pessoa pessoa) {
+	public ModelAndView cadastrarPessoa(@Valid Pessoa pessoa, BindingResult bd) {
+		
+		if(bd.hasErrors())
+		{
+			ModelAndView mv = new ModelAndView("/pessoa/form_cad");
+			mv.addObject("pessoa", pessoa);
+			mv.addObject("lista_nac", EnumNacionalidade.values());
+			return mv;
+		}
 		
 		Pessoa pes_nova = new Pessoa();
 		pes_nova.setNome(pessoa.getNome());

@@ -17,16 +17,27 @@
         <div class="row">
             
             <form th:object="${pessoa}" action="/insere_pessoa" method="post">
-            	Nome: <input class="form-control" type="text" th:field="*{nome}"><br>
-            	CPF: <input class="form-control" type="text" th:field="*{cpf}"><br>
+            	Nome: <input class="form-control" type="text" th:field="*{nome}"
+            	th:errorclass="is-invalid">
+            	<div class="invalid-feedback" th:errors="*{nome}"></div><br>
+            	
+            	CPF: <input class="form-control" type="text" th:field="*{cpf}"
+            	th:errorclass="is-invalid">
+        	    <div class="invalid-feedback" th:errors="*{cpf}"></div><br>
+            	
             	Data Nascimento: 
-            	<input class="form-control" type="date" th:field="*{dataNascimento}"><br>
+            	<input class="form-control" type="date" th:field="*{dataNascimento}"
+            	 th:errorclass="is-invalid">
+        	    <div class="invalid-feedback" th:errors="*{dataNascimento}"></div>
+            	<br>
+            	
             	Nacionalidade:
             	<select class="form-select" th:field="*{nacionalidade}">
             		<option th:each="nac : ${lista_nac}" th:value="${nac}" th:text="${nac}" />
             	</select>
             	E-mail:
-            	<input class="form-control" type="text" th:field="*{email}"><br>
+            	<input class="form-control" type="text" th:field="*{email}" th:errorclass="is-invalid">
+        	    <div class="invalid-feedback" th:errors="*{cpf}"></div> <br>  
             	
             	<button type="submit">Enviar</button>
             </form>

@@ -13,18 +13,23 @@
 <div class="row">
             
             <form th:object="${discente}" th:action="@{/discente/atualizar/{idDiscente}(idDiscente = ${discente.id})}" method="post">
-            	Nome: <input class="form-control" type="text" th:field="*{pessoa.nome}"><br>
-            	CPF: <input class="form-control" type="text" th:field="*{pessoa.cpf}"><br>
+            	Nome: <input class="form-control" type="text" th:field="*{pessoa.nome}" th:errorclass="is-invalid">
+            	<div class="invalid-feedback" th:errors="*{pessoa.nome}"></div><br>
+            	CPF: <input class="form-control" type="text" th:field="*{pessoa.cpf}" th:errorclass="is-invalid">
+            	<div class="invalid-feedback" th:errors="*{pessoa.cpf}"></div><br>
             	Data Nascimento:
             	<input class="form-control" type="date" th:field="*{pessoa.dataNascimento}"
-            	th:value="*{pessoa.dataNascimento}"><br>
+            	th:value="*{pessoa.dataNascimento}" th:errorclass="is-invalid">
+            	<div class="invalid-feedback" th:errors="*{pessoa.dataNascimento}"></div><br>
             	Nacionalidade:
             	<select class="form-select" th:field="*{pessoa.nacionalidade}">
             		<option th:each="nac : ${lista_nac}" th:value="${nac}" th:text="${nac.descricao}" />
             	</select>
             	E-mail:
-            	<input class="form-control" type="text" th:field="*{pessoa.email}"><br>
-            	RM: <input class="form-control" type="text" th:field="*{rm}"><br>
+            	<input class="form-control" type="text" th:field="*{pessoa.email}" th:errorclass="is-invalid">
+            	<div class="invalid-feedback" th:errors="*{pessoa.email}"></div><br>
+            	RM: <input class="form-control" type="text" th:field="*{rm}" th:errorclass="is-invalid">
+            	<div class="invalid-feedback" th:errors="*{rm}"></div><br>
             	Status:
             	<select class="form-select" th:field="*{status}">
             		<option th:each="status : ${lista_status}" th:value="${status}" th:text="${status.descricao}" />
@@ -36,7 +41,6 @@
             	<button type="submit">Editar Discente</button>
             </form>
  
-            
         </div>
         <div class="row">
             <a href="/index">Listar discentes</a>

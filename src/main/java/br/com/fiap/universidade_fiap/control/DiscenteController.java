@@ -126,7 +126,17 @@ public class DiscenteController {
 	}
 
 	@PostMapping("/discente/atualizar/{id}")
-	public ModelAndView atualizarDiscente(@PathVariable Long id, Discente discente_atualizado) {
+	public ModelAndView atualizarDiscente(@PathVariable Long id, @Valid Discente discente_atualizado, BindingResult bd) {
+		
+		if (bd.hasErrors())
+		{
+			ModelAndView mv = new ModelAndView("/discente/editar");
+			mv.addObject("discente", discente_atualizado);
+			mv.addObject("lista_nac", EnumNacionalidade.values());
+			mv.addObject("lista_status", EnumStatus.values());
+			mv.addObject("lista_niveis", EnumNivel.values());
+			return mv;
+		}
 		
 		Optional<Discente> op = repD.findById(id);
 		
